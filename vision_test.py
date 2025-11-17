@@ -32,4 +32,4 @@ finally:
     cv2.destroyAllWindows()
     print("Captura finalizada")
 
-#hola
+#hola mundo 2
