@@ -8,8 +8,8 @@ Este proyecto consiste en el diseño e implementación de un vehículo robótico
     * [Sistema de Movimiento](#Sistema-de-Movimiento)
     * [Selección de Motores](#Selección-de-Motores)
 
-* [Electronics and sensors](#electronics-and-sensors)
-    * [List of components](#list-of-components)
+* [Electronica y Sensores](#Electronica-y-Sensores)
+    * [Lista de componentes](#Lista-de-componentes)
     * [Sensor list](#sensor-list)
     * [Power Management](#power-management)
     * [PCB](#pcb)
@@ -55,8 +55,36 @@ Distribución a Ruedas: El eje trasero es rígido (sin diferencial), lo que aseg
 Selección e Implementación de Motores: Se eligió un motor eléctrico cepillado tipo RC 540 de 35T, que ofrece mayor velocidad a costa de un menor torque, adecuado para el balance buscado entre rendimiento y fuerza.
 
 
-## PHOTOS
+## Electronica y Sensores
 
+Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos una arquitectura electrónica que separa el 'pensamiento' de la acción. Utilizamos un sistema de procesamiento dual donde un cerebro se encarga de la estrategia y la visión, mientras que otro se dedica exclusivamente a leer los sensores en tiempo real. A continuación, detallamos los componentes específicos que elegimos.
+
+###Lista de componentes
+
+1. Unidades de Procesamiento
+   Raspberry Pi 4 Model B: Es la unidad central de procesamiento (CPU). Ejecuta el sistema operativo, los algoritmos de visión artificial, la estrategia de navegación y coordina el movimiento del vehículo.
+
+   ESP32: Actúa como coprocesador dedicado a la adquisición de datos. Se encarga de leer los sensores I2C de alta velocidad y enviar la informacion limpia a la Raspberry Pi 4 mediante comunicación serial (UART), liberando carga del procesador principal.
+
+2. Sensores de Percepción (Los Sentidos)
+   3x Sensores de Distancia Láser (VL53L0X):
+   Ubicación: Frontal, Lateral Izquierdo, Lateral Derecho.
+   Función: Utilizan tecnología de Tiempo de Vuelo (ToF) para medir con precisión milimétrica la distancia a las paredes y obstáculos, permitiendo el mapeo de la   pista.
+
+   1x Encoder Óptico (HC-020K):
+   Ubicación: Eje trasero o caja de cambios.
+   Función: Cuenta las revoluciones de la rueda para calcular la odometría (distancia lineal recorrida y velocidad actual).
+
+   1x Cámara (Raspberry Pi Camera Module V2):
+   Función: Captura imágenes de la pista en tiempo real para la detección de líneas y corrección visual de la trayectoria.
+
+3. Actuadores y Potencia
+   Motor DC (Brushed): Proporciona la tracción trasera para el desplazamiento del vehículo.
+   Controlador de Velocidad Electrónico (ESC): Regula la potencia que recibe el motor desde la batería, permitiendo controlar la velocidad de avance y frenado mediante señales PWM desde la Raspberry Pi.
+
+   Servomotor: Controla el sistema de dirección Ackermann para girar las ruedas delanteras con precisión angular.
+
+   Batería LiPo (Polímero de Litio): Fuente de energía principal de alta descarga para alimentar tanto los motores (a través del ESC) como la electrónica de control (mediante reguladores de voltaje).
 
 ## 🚀 Instalación
 
