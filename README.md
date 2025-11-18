@@ -1,4 +1,4 @@
-#   N.         O.        V.      A  
+#   N.O.V.A  
 ##  Navigation Operative Vehicle Autonomus
 Descripción breve y directa de lo que hace el proyecto.
 
