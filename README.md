@@ -4,7 +4,7 @@
 Este proyecto consiste en el diseño e implementación de un vehículo robótico autónomo de tracción trasera y dirección tipo Ackermann, optimizado para entornos de competencia. El sistema se basa en una arquitectura de procesamiento distribuido que integra visión por computadora, fusión sensorial y algoritmos de localización y mapeo simultáneo (SLAM) para ejecutar una estrategia de carrera de dos fases: reconocimiento de pista y optimización de trayectoria a alta velocidad.
 
 ## Indice
-* [Sistema de Movimiento y Selección de Motores](#Sistema de Movimiento y Selección de Motores)
+* [Sistema de Movimiento y Selección de Motores](#Sistema-de-Movimiento-y-Selección-de-Motores)
     * [Car movement](#car-movement)
     * [Structural design](#structural-design)
 
