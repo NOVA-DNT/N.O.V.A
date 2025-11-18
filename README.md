@@ -4,7 +4,7 @@
 Este proyecto consiste en el diseño e implementación de un vehículo robótico autónomo de tracción trasera y dirección tipo Ackermann, optimizado para entornos de competencia. El sistema se basa en una arquitectura de procesamiento distribuido que integra visión por computadora, fusión sensorial y algoritmos de localización y mapeo simultáneo (SLAM) para ejecutar una estrategia de carrera de dos fases: reconocimiento de pista y optimización de trayectoria a alta velocidad.
 
 ## Indice
-* [Hardware](#hardware)
+* [Sistema de Movimiento y Selección de Motores](#Sistema de Movimiento y Selección de Motores)
     * [Car movement](#car-movement)
     * [Structural design](#structural-design)
 
@@ -26,11 +26,25 @@ Este proyecto consiste en el diseño e implementación de un vehículo robótico
 
 * [Demostration videos](#demonstration-videos)
 
-## ⚙️ Requisitos
+## Sistema de Movimiento y Selección de Motores
 
-- Python 3.10+
-- Django 4.2
-- PostgreSQL 13+
+La movilidad de nuestro robot autónomo se diseñó priorizando la velocidad y la precisión en el posicionamiento, elementos críticos para la competición WRO.  
+El sistema de movimiento se basa en una tracción trasera (RWD) con eje motriz rígido y dirección tipo Ackerman en el eje delantero. Esta configuración fue elegida por su simplicidad mecánica y robustez, ya que optimiza la eficiencia de la tracción y reduce la complejidad del sistema motriz.
+
+El robot se construyó sobre un chasis de acrílico tipo 4WD, con dimensiones de 248 mm de largo por 146 mm de ancho. El peso total del conjunto, sin carga de misión, es de aproximadamente 680 g, y con todos los componentes alcanza 1.4 kg.
+
+Para la tracción, se seleccionó un único motor encargado de impulsar el eje trasero. La potencia se transfiere directamente al eje motriz rígido mediante un sistema de engranajes rectos con la siguiente configuración:  
+- Piñón del motor: 30 dientes  
+- Piñón del eje trasero: 54 dientes  
+
+Relación de Transmisión: La relación de transmisión se calcula como:
+
+i = Zsalida / Zentrada = 54 / 30 = 1.8
+
+Distribución a Ruedas: El eje trasero es rígido (sin diferencial), lo que asegura que ambas ruedas motrices giren a la misma velocidad angular en todo momento.
+
+Selección e Implementación de Motores: Se eligió un motor eléctrico cepillado tipo RC 540 de 35T, que ofrece mayor velocidad a costa de un menor torque, adecuado para el balance buscado entre rendimiento y fuerza.
+
 
 ## PHOTOS
 
