@@ -73,6 +73,20 @@ Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos un
    Servomotor: Controla el sistema de dirección Ackermann para girar las ruedas delanteras con precisión angular.
 
    Batería LiPo (Polímero de Litio): Fuente de energía principal de alta descarga para alimentar tanto los motores (a través del ESC) como la electrónica de control (mediante reguladores de voltaje).
+   
+## Gestión de obstáculos 
+
+NOVA utiliza una Arducam para Raspberry Pi Módulo 3 12MP  IMX708. Esta se basa en una serie de componentes clave que trabajan juntos para capturar, procesar y transferir  imágenes y video a nuestra Raspberry Pi. 
+La cámara cuenta con un Sensor de Imagen Sony IMX708 (12MP), cuya función principal es convertir la luz que incide en él en una señal eléctrica.
+Integra además un lente de 75°(D) y autoenfoque que se encarga de dirigir la luz hacia el sensor y de asegurar que la imagen esté nítida.
+Por último, cuenta con un cable plano flexible (FFC) (15-22pin). Este es el conductor de la comunicación y la energía.  
+
+El vehículo autónomo utiliza una estrategia que fusiona datos de visión artificial (Arducam IMX708) y sensores de proximidadláser (VL53L0X) para sortear la pista y contar el progreso.
+
+La Rasberry Pi actúa como la unidad central de procesamiento, integrando:
+1. Visión (IMX708): Se utiliza para la detección de límites de pista y el conteo de vueltas. Mediante el análisis del color negro (HSV) en la región de interés (ROI) inferior, el sistema determina dinámicamente si debe seguir la pared izquierda o la derecha.
+2. Distancia (VL53L0X): Tres sensores (S1, S2, S3) proporcionan distancias precisas a las paredes. Los datos son filtrados mediante un Promedio Móvil (Moving Average) de 5 muestras para asegurar estabilidad y rechazo de ruido antes de ser utilizados en el controlador.
+3. Actuadores:El control de movimiento se realiza mediante un sistema de ESC (Propulsión) y un Servo (Dirección), manejados con precisión a través de la librería gpiozero.
 
 ## 🚀 Instalación
 
