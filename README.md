@@ -30,7 +30,7 @@ Este proyecto consiste en el diseño e implementación de un vehículo robótico
 
 Para nosotros, desarrollar un vehículo autónomo requiere integrar tres pilares con la misma importancia: la mecánica, la electrónica y la programación. Sabíamos que un buen código necesita un chasis excelente para funcionar, así que decidimos utilizar una plataforma comercial como punto de partida para ser más eficientes.
 
-Sin embargo, no nos limitamos a ensamblar el kit. Dedicamos una gran parte del proyecto a modificar y rediseñar la estructura del vehículo para adaptarla a nuestras necesidades específicas. Nuestro objetivo fue asegurar que la parte física tuviera el mismo nivel de calidad y detalle que nuestro software, garantizando que los componentes mecánicos y la programación trabajen juntos sin problemas durante la competición.
+Sin embargo, no nos limitamos a ensamblar el kit. Dedicamos una parte del proyecto a diseñar estructuras para el vehículo para adaptarla a nuestras necesidades específicas. Nuestro objetivo fue asegurar que la parte física tuviera el mismo nivel de calidad y detalle que nuestro software, garantizando que los componentes mecánicos y la programación trabajen juntos sin problemas durante la competición.
 
 
 ### Sistema de Movimiento
