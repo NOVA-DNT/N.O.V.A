@@ -59,7 +59,7 @@ Selección e Implementación de Motores: Se eligió un motor eléctrico cepillad
 
 Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos una arquitectura electrónica que separa el 'pensamiento' de la acción. Utilizamos un sistema de procesamiento dual donde un cerebro se encarga de la estrategia y la visión, mientras que otro se dedica exclusivamente a leer los sensores en tiempo real. A continuación, detallamos los componentes específicos que elegimos.
 
-###Lista de componentes
+### Lista de componentes
 
 1. Unidades de Procesamiento
    Raspberry Pi 4 Model B: Es la unidad central de procesamiento (CPU). Ejecuta el sistema operativo, los algoritmos de visión artificial, la estrategia de navegación y coordina el movimiento del vehículo.
