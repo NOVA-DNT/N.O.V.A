@@ -33,14 +33,14 @@ Para nosotros, desarrollar un vehículo autónomo requiere integrar tres pilares
 Sin embargo, no nos limitamos a ensamblar el kit. Dedicamos una gran parte del proyecto a modificar y rediseñar la estructura del vehículo para adaptarla a nuestras necesidades específicas. Nuestro objetivo fue asegurar que la parte física tuviera el mismo nivel de calidad y detalle que nuestro software, garantizando que los componentes mecánicos y la programación trabajen juntos sin problemas durante la competición.
 
 
-###Sistema de Movimiento
+### Sistema de Movimiento
 
 La movilidad de nuestro robot autónomo se diseñó priorizando la velocidad y la precisión en el posicionamiento, elementos críticos para la competición WRO.  
 El sistema de movimiento se basa en una tracción trasera (RWD) con eje motriz rígido y dirección tipo Ackerman en el eje delantero. Esta configuración fue elegida por su simplicidad mecánica y robustez, ya que optimiza la eficiencia de la tracción y reduce la complejidad del sistema motriz.
 
 El robot se construyó sobre un chasis de acrílico tipo 4WD, con dimensiones de 248 mm de largo por 146 mm de ancho. El peso total del conjunto, sin carga de misión, es de aproximadamente 680 g, y con todos los componentes alcanza 1.4 kg.
 
-###Selección de Motores
+### Selección de Motores
 
 Para la tracción, se seleccionó un único motor encargado de impulsar el eje trasero. La potencia se transfiere directamente al eje motriz rígido mediante un sistema de engranajes rectos con la siguiente configuración:  
 - Piñón del motor: 30 dientes  
