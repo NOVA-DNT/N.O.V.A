@@ -10,21 +10,6 @@ Este proyecto consiste en el diseño e implementación de un vehículo robótico
 
 * [Electronica y Sensores](#Electronica-y-Sensores)
     * [Lista de componentes](#Lista-de-componentes)
-    * [Sensor list](#sensor-list)
-    * [Power Management](#power-management)
-    * [PCB](#pcb)
-
-* [Strategy and operation of the code](#strategy-and-operation-of-the-code)
-    * [Slave code](#how-the-slave-code-works)
-    * [Location of the robot](#location-of-the-robot-on-the-board)
-    * [Open Challenge Strategy](#open-challenge-strategy)
-    * [Obstacle Challenge Strategy](#obstacle-challenge-strategy)
-
-* [Photos](#photos)
-    * [Car images](#car-images)
-    * [Team images](#team-images)
-
-* [Demostration videos](#demonstration-videos)
 
 ## Sistema de Movimiento y Selección de Motores
 
