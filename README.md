@@ -62,11 +62,13 @@ Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos un
 ### Lista de componentes
 
 1. Unidades de Procesamiento
+
    Raspberry Pi 4 Model B: Es la unidad central de procesamiento (CPU). Ejecuta el sistema operativo, los algoritmos de visión artificial, la estrategia de navegación y coordina el movimiento del vehículo.
 
    ESP32: Actúa como coprocesador dedicado a la adquisición de datos. Se encarga de leer los sensores I2C de alta velocidad y enviar la informacion limpia a la Raspberry Pi 4 mediante comunicación serial (UART), liberando carga del procesador principal.
 
-2. Sensores de Percepción (Los Sentidos)
+3. Sensores de Percepción (Los Sentidos)
+   
    3x Sensores de Distancia Láser (VL53L0X):
    Ubicación: Frontal, Lateral Izquierdo, Lateral Derecho.
    Función: Utilizan tecnología de Tiempo de Vuelo (ToF) para medir con precisión milimétrica la distancia a las paredes y obstáculos, permitiendo el mapeo de la   pista.
@@ -78,7 +80,8 @@ Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos un
    1x Cámara (Raspberry Pi Camera Module V2):
    Función: Captura imágenes de la pista en tiempo real para la detección de líneas y corrección visual de la trayectoria.
 
-3. Actuadores y Potencia
+4. Actuadores y Potencia
+   
    Motor DC (Brushed): Proporciona la tracción trasera para el desplazamiento del vehículo.
    Controlador de Velocidad Electrónico (ESC): Regula la potencia que recibe el motor desde la batería, permitiendo controlar la velocidad de avance y frenado mediante señales PWM desde la Raspberry Pi.
 
