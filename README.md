@@ -129,7 +129,7 @@ La selección de sensores está orientada a proporcionar al robot la informació
 
 ## 3. Gestión de obstáculos 
 ## 4. Fotos- Equipo y vehículo
-![WhatsApp Image 2025-11-18 at 09 39 11](https://github.com/user-attachments/assets/96940c17-59b3-49ee-9160-05f82a3bc3a5)
+<img width="751" height="489" alt="Captura de pantalla 2025-11-18 201911" src="https://github.com/user-attachments/assets/553cd6fb-8abc-4d31-b46e-da50b13f9ae0" />
 
 ## 5. Performance videos 
 https://www.youtube.com/channel/UCp8W6HJ0NGMzdpxV4bdbbew
