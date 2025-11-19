@@ -139,6 +139,18 @@ La selección de sensores está orientada a proporcionar al robot la informació
 * 1x Cámara (ArduCam V3 12MP): Captura de imágenes de alta resolución. Utilizada para Visión Artificial, permitiendo la detección de líneas, el reconocimiento de patrones y la corrección visual de la trayectoria.
 
 ## 3. Gestión de obstáculos 
+En este apartado se describe la lógica del funcionamiento del vehículo autónomo y su adaptación a las condiciones reales de la pista donde no se encuentran obstáculos fisicos móviles. En este contexto, la gestión de obstáculos se transforma en un sistema de detección y seguimiento de paredes, utilizando visión artificial y sensores de distancia. Todo esto permite mantener al robot centrado en la pista y completar las vueltas sin salirse del área definida.
+
+### 3.1 Sistema de visión 
+NOVA utiliza una Arducam para Raspberry Pi Módulo 3. Esta cámara cumple un papel esencial dentro del sistema de percepción, ya que es la encargada de capturar la información visual del entorno.
+Sus componentes principales son:
+* Sensor Sony IMX708 (12 MP): Convierte la luz en señales eléctricas, generando la imagen digital.
+* Lente de 75° con autofoco: Dirige la luz hacia el sensor y ajusta automáticamente la nitidez para mantener detalles claros en movimiento.
+* Cable FFC (15–22 pines): Proporciona energía y conecta la cámara a la Raspberry Pi mediante un enlace de alta velocidad.
+Gracias a esta cámara, el robot puede analizar el entorno en tiempo real y extraer información útil sobre las paredes y líneas guía presentes en la pista.
+### 3.2 Preocesamiento de imagen para detección de limites
+
+
 ## 4. Fotos- Equipo y vehículo
 <img width="751" height="489" alt="Captura de pantalla 2025-11-18 201911" src="https://github.com/user-attachments/assets/553cd6fb-8abc-4d31-b46e-da50b13f9ae0" />
 
