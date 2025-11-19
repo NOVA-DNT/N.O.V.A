@@ -1,6 +1,12 @@
 #   N.O.V.A  
 ## INDICE 
 [1 Gestión de movilidad](#1-gestión-de-movilidad)
+[2. Gestión de la potencia y los sentidos](#2-gestión-de-la-potencia-y-los-sentidos)
+[3. Gestión de obstáculos](#3-gestión-de-obstáculos)
+[4. Fotos- Equipo y vehículo](#4-fotos--equipo-y-vehículo)
+[5. Performance videos](#5-performance-videos)
+[6. Utilización de Github](#6-utilización-de-github)
+[7. Factor de ingeniería](#7-factor-de-ingeniería)
 ## 1 Gestión de movilidad 
 
 ### 1.1 Sistema de Movimiento y Selección de Motores
