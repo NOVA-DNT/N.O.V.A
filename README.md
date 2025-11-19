@@ -116,16 +116,17 @@ Engranaje Motriz del Eje Trasero: Esta pieza fue rediseñada en SolidWorks y fab
 
 ## 2. Gestión de la potencia y los sentidos 
 El diseño de la arquitectura eléctrica y de percepción se basa en un enfoque de aislamiento de potencia y redundancia sensorial para garantizar la estabilidad operativa y la precisión en la navegación.
-2.1 Gestión de la Energía (Aislamiento de Potencia)
+### 2.1 Gestión de la Energía (Aislamiento de Potencia)
 La estrategia de energía utiliza un sistema de doble batería LiPo para aislar los sistemas de potencia (motores/actuadores) de los sistemas lógicos (procesamiento/sensores).
 * Fuente de Energía: Dos (2) Baterías LiPo de 5200 mAh, 7.4 V (2 celdas).
 Justificación del Aislamiento: Esta configuración de doble batería es fundamental para mitigar el "problema de la caída de voltaje (Brownout)".
 * Batería 1 (Actuadores): Dedicada exclusivamente al Motor DC (Brushed) de tracción y al Servomotor de dirección (a través del ESC). Esta batería absorbe los picos de consumo y las caídas de voltaje de los motores sin afectar la electrónica sensible.
 * Batería 2 (Lógica y Sensores): Dedicada a la Raspberry Pi 4 (CPU) y a todos los sensores. Esto garantiza un suministro de voltaje limpio y estable a los componentes de procesamiento, evitando reinicios inesperados que comprometerían la ejecución de la estrategia de navegación.
-2.2 Selección e Implementación de Sensores (Los Sentidos)
+### 2.2 Selección e Implementación de Sensores (Los Sentidos)
 La selección de sensores está orientada a proporcionar al robot la información precisa y de baja latencia necesaria para la localización y la corrección de trayectoria en tiempo real.
 * 3x Sensores de Distancia Láser (VL53L0X): Utilizan tecnología Time-of-Flight (ToF). Son esenciales para el mapeo de la pista y la corrección lateral de la trayectoria (paredes). Su precisión milimétrica minimiza el error acumulado en el posicionamiento.
 * 1x Cámara (ArduCam V3 12MP): Captura de imágenes de alta resolución. Utilizada para Visión Artificial, permitiendo la detección de líneas, el reconocimiento de patrones y la corrección visual de la trayectoria.
+
 ## 3. Gestión de obstáculos 
 ## 4. Fotos- Equipo y vehículo
 ## 5. Performance videos 
