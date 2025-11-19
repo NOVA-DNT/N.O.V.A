@@ -123,6 +123,8 @@ Sin embargo, el equipo diseñó y fabricó u dos (2) piezas personalizadas esenc
 Base de Montaje de la Cámara: Una estructura diseñada en SolidWorks para asegurar la cámara de visión de manera estable y a una altura optimizada para la detección de líneas.
 Engranaje Motriz del Eje Trasero: Esta pieza fue rediseñada en SolidWorks y fabricada debido a una falla crítica en el engranaje original del kit.Justificación de Ingeniería: El engranaje original se estropeó por sobrecalentamiento/fricción (derretimiento). El nuevo diseño garantiza la tolerancia térmica y la resistencia mecánica necesarias para soportar el torque del motor RC 540 de 35T sin comprometer la relación de transmisión de 1.8:1
 
+![WhatsApp Image 2025-11-18 at 20 32 40](https://github.com/user-attachments/assets/3d3d4125-35a8-4d0a-8839-3ccb3a0cdaf0)
+
 ## 2. Gestión de la potencia y los sentidos 
 El diseño de la arquitectura eléctrica y de percepción se basa en un enfoque de aislamiento de potencia y redundancia sensorial para garantizar la estabilidad operativa y la precisión en la navegación.
 ### 2.1 Gestión de la Energía (Aislamiento de Potencia)
@@ -152,5 +154,7 @@ Sin embargo, el equipo diseñó y fabricó u dos (2) piezas personalizadas esenc
 Base de Montaje de la Cámara: Una estructura diseñada en SolidWorks para asegurar la cámara de visión de manera estable y a una altura optimizada para la detección de líneas.
 Engranaje Motriz del Eje Trasero: Esta pieza fue rediseñada en SolidWorks y fabricada debido a una falla crítica en el engranaje original del kit. 
 Justificación de Ingeniería: El engranaje original se estropeó por sobrecalentamiento/fricción (derretimiento). El nuevo diseño garantiza la tolerancia térmica y la resistencia mecánica necesarias para soportar el torque del motor RC 540 de 35T sin comprometer la relación de transmisión de 1.8:1
+
+![WhatsApp Image 2025-11-18 at 20 32 40](https://github.com/user-attachments/assets/09240af7-5856-43bd-8d3f-5d8a71cfa817)
 
 
