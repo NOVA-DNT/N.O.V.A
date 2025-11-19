@@ -148,8 +148,33 @@ Sus componentes principales son:
 * Lente de 75° con autofoco: Dirige la luz hacia el sensor y ajusta automáticamente la nitidez para mantener detalles claros en movimiento.
 * Cable FFC (15–22 pines): Proporciona energía y conecta la cámara a la Raspberry Pi mediante un enlace de alta velocidad.
 Gracias a esta cámara, el robot puede analizar el entorno en tiempo real y extraer información útil sobre las paredes y líneas guía presentes en la pista.
-### 3.2 Preocesamiento de imagen para detección de limites
-
+### 3.2 Procesamiento de imagen para detección de lÍmites
+Una vez adquirida la imagen, el sistema aplica un umbral de color en formato HSV, diseñado para aislar los tonos oscuros que corresponden a las paredes. Este filtrado elimina el fondo no relevante y únicamente permanecen los elementos que interesan para la navegación.
+Incluso sin obstáculos móviles, estas paredes actúan como “obstáculos estáticos” que el robot debe evitar constantemente para mantenerse dentro del circuito.
+### 3.3 Estimación de distancias 
+El sistema también puede estimar la proximidad de una pared midiendo la cantidad de píxeles entre el borde detectado y la parte inferior de la imagen.
+Una pared que aparece cada vez más grande o cercana dentro del campo de visión indica que el robot se aproxima demasiado.
+Además, la cámara identifica si la pared dominante se encuentra a la izquierda, a la derecha o de forma equilibrada, lo que permite tomar decisiones de dirección.
+### 3.4 Sensores de distancia 
+Para complementar la visión, el vehículo emplea tres sensores láser VL53L0X, ubicados en los laterales y al frente. Estos sensores permiten medir con precisión la distancia a las paredes y evitar colisiones.
+Los datos de los sensores se filtran mediante un promedio móvil, eliminando ruido y variaciones bruscas. Luego se combinan con la información visual para obtener una percepción más robusta del entorno.
+El sistema decide a qué pared seguir (izquierda o derecha) dependiendo de lo que detecte la cámara. A partir de esa selección, calcula el error de distancia usando el valor obtenido por los VL53L0X.
+### 3.5 Lógica de gestión de obstáculos
+Aunque no existen objetos físicos inesperados, el robot debe actuar como si las paredes fueran obstáculos
+La lógica funciona así:
+* Si detecta una pared acercándose por el lado izquierdo, ajusta la dirección hacia la derecha.
+* Si detecta una pared acercándose por el lado derecho, corrige hacia la izquierda.
+* Si ambas paredes están equilibradas, mantiene una trayectoria recta.
+* Si la cámara detecta un borde frontal o línea de retención, se detiene o reduce la velocidad.
+De este modo, el robot nunca choca con las paredes y se mantiene estable dentro del carril.
+### 3.6 Control PID para mantener la distancia correcta 
+La dirección del robot se controla mediante un sistema PID (Proporcional–Integral–Derivativo), que calcula cuánto debe girar el servomotor en función del error de distancia a la pared.
+* El término P corrige los errores inmediatos.
+* El término I acumula pequeñas desviaciones para evitar que el robot se incline hacia un lado.
+* El término D suaviza cambios bruscos y evita giros repentinos.
+Esto permite que la navegación sea suave y precisa incluso a altas velocidades.
+### 3.7 Diagrama de flujo
+<img width="530" height="450" alt="diagrama de flujo NOVA" src="https://github.com/user-attachments/assets/287f7cc5-5ebc-49b8-a277-2855ce4ed863" />
 
 ## 4. Fotos- Equipo y vehículo
 <img width="751" height="489" alt="Captura de pantalla 2025-11-18 201911" src="https://github.com/user-attachments/assets/553cd6fb-8abc-4d31-b46e-da50b13f9ae0" />
