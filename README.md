@@ -28,7 +28,7 @@ Motor DC tipo brushed
 Controlador de Velocidad Electrónico (ESC)
 Servomotor
 
-### 1.3 Principios de Ingeniería Aplicados
+## 1.3 Principios de Ingeniería Aplicados
 El desempeño del robot se fundamenta en la aplicación de principios básicos de dinámica, cinemática y diseño mecánico, considerando una masa operacional de 1.4 kg y una masa de diseño de 1.5 kg para incorporar un margen de seguridad. A continuación, se presentan los criterios técnicos que guiaron la selección del motor, la relación de engranes, el chasis y la gestión del movimiento.
 
 Para garantizar que el sistema motriz cumpliera con los requerimientos de aceleración, tracción y velocidad, se establecieron los siguientes parámetros:
@@ -46,7 +46,7 @@ Coeficiente de resistencia a la rodadura: 0.05
 
 Estos valores se usaron para estimar las fuerzas que el motor debía superar y definir el torque mínimo necesario en el eje de ruedas.
 
-1.3.1 Cálculo de Fuerzas Requeridas
+#### 1.3.1 Cálculo de Fuerzas Requeridas
 
 Fuerzas primarias
 
@@ -64,13 +64,13 @@ Ftotal\max = 4.791\N
 
 Este valor se utilizó para garantizar que el motor seleccionado funcionara incluso en situaciones adversas.
 
-1.3.2 Torque Requerido en el Eje
+#### 1.3.2 Torque Requerido en el Eje
 
 Torque en el eje de ruedas (caso conservador) : Taxle = Ftotal\_max \cdot r = 4.791 \cdot 0.035 = 0.1677\ N·m
 
 Torque por rueda, el sistema de tracción trasera transmite el par equitativamente a dos ruedas motrices: Twheel = 0.0838\N·m
 
-1.3.3 Potencia Mecánica Requerida
+#### 1.3.3 Potencia Mecánica Requerida
 
 Se estimó la potencia usando las dos formulaciones fundamentales:
 
@@ -79,7 +79,7 @@ Potencia por fuerza y velocidad lineal: P = F cdot v \approx 2.667\ W
 Potencia por torque y velocidad angular: P = T \cdot \omega \approx 4.00\ W
 Ambos resultados confirman que el robot requiere solo unos pocos watts de potencia mecánica continua, lo que es compatible con motores RC de escala pequeña.
 
-1.3.4 Selección del Motor y Relación de Engranes
+#### 1.3.4 Selección del Motor y Relación de Engranes
 
 Compromiso Velocidad–Par
 
