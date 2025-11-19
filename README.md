@@ -1,137 +1,144 @@
 #   N.O.V.A  
-##  Navigation Operative Vehicle Autonomus
+## 1 Gestión de movilidad 
 
-Este proyecto consiste en el diseño e implementación de un vehículo robótico autónomo de tracción trasera y dirección tipo Ackermann, optimizado para entornos de competencia. El sistema se basa en una arquitectura de procesamiento distribuido que integra visión por computadora, fusión sensorial y algoritmos de localización y mapeo simultáneo (SLAM) para ejecutar una estrategia de carrera de dos fases: reconocimiento de pista y optimización de trayectoria a alta velocidad.
-
-## Indice
-* [Sistema de Movimiento y Selección de Motores](#Sistema-de-Movimiento-y-Selección-de-Motores)
-    * [Sistema de Movimiento](#Sistema-de-Movimiento)
-    * [Selección de Motores](#Selección-de-Motores)
-
-* [Electronica y Sensores](#Electronica-y-Sensores)
-    * [Lista de componentes](#Lista-de-componentes)
-
-## Sistema de Movimiento y Selección de Motores
-
-Para nosotros, desarrollar un vehículo autónomo requiere integrar tres pilares con la misma importancia: la mecánica, la electrónica y la programación. Sabíamos que un buen código necesita un chasis excelente para funcionar, así que decidimos utilizar una plataforma comercial como punto de partida para ser más eficientes.
-
-Sin embargo, no nos limitamos a ensamblar el kit. Dedicamos una parte del proyecto a diseñar estructuras para el vehículo adaptadas a nuestras necesidades específicas. Nuestro objetivo fue asegurar que la parte física tuviera el mismo nivel de calidad y detalle que nuestro software, garantizando que los componentes mecánicos y la programación trabajen juntos sin problemas durante la competición.
-
-
-### Sistema de Movimiento
+### 1.1 Sistema de Movimiento y Selección de Motores
 
 La movilidad de nuestro robot autónomo se diseñó priorizando la velocidad y la precisión en el posicionamiento, elementos críticos para la competición WRO.  
 El sistema de movimiento se basa en una tracción trasera (RWD) con eje motriz rígido y dirección tipo Ackerman en el eje delantero. Esta configuración fue elegida por su simplicidad mecánica y robustez, ya que optimiza la eficiencia de la tracción y reduce la complejidad del sistema motriz.
 
 El robot se construyó sobre un chasis de acrílico tipo 4WD, con dimensiones de 248 mm de largo por 146 mm de ancho. El peso total del conjunto, sin carga de misión, es de aproximadamente 680 g, y con todos los componentes alcanza 1.4 kg.
 
-### Selección de Motores
-
-Para la tracción, se seleccionó un único motor encargado de impulsar el eje trasero. La potencia se transfiere directamente al eje motriz rígido mediante un sistema de engranajes rectos con la siguiente configuración:  
-- Piñón del motor: 30 dientes  
-- Piñón del eje trasero: 54 dientes  
-
-Relación de Transmisión: La relación de transmisión se calcula como:
-
-i = Zsalida / Zentrada = 54 / 30 = 1.8
-
 Distribución a Ruedas: El eje trasero es rígido (sin diferencial), lo que asegura que ambas ruedas motrices giren a la misma velocidad angular en todo momento.
 
 Selección e Implementación de Motores: Se eligió un motor eléctrico cepillado tipo RC 540 de 35T, que ofrece mayor velocidad a costa de un menor torque, adecuado para el balance buscado entre rendimiento y fuerza.
 
+### 1.2  Diseño y Montaje del Chasis/Estructura
 
-## Electronica y Sensores
+El diseño del chasis fue fundamental para garantizar la estabilidad y mantener un centro de gravedad bajo. La plataforma está construida sobre un chasis de acrílico tipo 4WD, con dimensiones de 248 mm × 146 mm y un peso aproximado de 680 g sin carga, alcanzando alrededor de 1.4 kg con todos los elementos montados.
 
-Para lograr que el vehículo navegue de forma autónoma y precisa, diseñamos una arquitectura electrónica que separa el 'pensamiento' de la acción. Utilizamos un sistema de procesamiento dual donde un cerebro se encarga de la estrategia y la visión, mientras que otro se dedica exclusivamente a leer los sensores en tiempo real. A continuación, detallamos los componentes específicos que elegimos.
+La distribución interna de los módulos fue cuidadosamente organizada para equilibrar el peso y facilitar el acceso a las zonas de calibración y mantenimiento. Los componentes instalados son los siguientes:
 
-### Lista de componentes
+Raspberry Pi 4 Model B
+ESP32
+3 × Sensores de distancia láser VL53L0X
+1 × Encoder óptico HC-020K
+1 × Cámara Raspberry Pi Camera Module V2
+Actuadores y Sistema de Potencia
+Motor DC tipo brushed
+Controlador de Velocidad Electrónico (ESC)
+Servomotor
 
-1. Unidades de Procesamiento
+### 1.3 Principios de Ingeniería Aplicados
+El desempeño del robot se fundamenta en la aplicación de principios básicos de dinámica, cinemática y diseño mecánico, considerando una masa operacional de 1.4 kg y una masa de diseño de 1.5 kg para incorporar un margen de seguridad. A continuación, se presentan los criterios técnicos que guiaron la selección del motor, la relación de engranes, el chasis y la gestión del movimiento.
 
-   Raspberry Pi 4 Model B: Es la unidad central de procesamiento (CPU). Ejecuta el sistema operativo, los algoritmos de visión artificial, la estrategia de navegación y coordina el movimiento del vehículo.
+Para garantizar que el sistema motriz cumpliera con los requerimientos de aceleración, tracción y velocidad, se establecieron los siguientes parámetros:
 
-   ESP32: Actúa como coprocesador dedicado a la adquisición de datos. Se encarga de leer los sensores I2C de alta velocidad y enviar la informacion limpia a la Raspberry Pi 4 mediante comunicación serial (UART), liberando carga del procesador principal.
+Masa tomada para cálculo: 1.5 kg
 
-3. Sensores de Percepción (Los Sentidos)
-   
-   3x Sensores de Distancia Láser (VL53L0X):
-   Ubicación: Frontal, Lateral Izquierdo, Lateral Derecho.
-   Función: Utilizan tecnología de Tiempo de Vuelo (ToF) para medir con precisión milimétrica la distancia a las paredes y obstáculos, permitiendo el mapeo de la   pista.
+Radio de la rueda: 0.035 m (diámetro 0.07 m)
 
-   1x Encoder Óptico (HC-020K):
-   Ubicación: Eje trasero o caja de cambios.
-   Función: Cuenta las revoluciones de la rueda para calcular la odometría (distancia lineal recorrida y velocidad actual).
+Gravedad: 9.81 m/s²
 
-   1x Cámara (Raspberry Pi Camera Module V2):
-   Función: Captura imágenes de la pista en tiempo real para la detección de líneas y corrección visual de la trayectoria.
+Aceleración deseada en maniobra rápida: 1.0 m/s²
 
-4. Actuadores y Potencia
-   
-   Motor DC (Brushed): Proporciona la tracción trasera para el desplazamiento del vehículo.
-   Controlador de Velocidad Electrónico (ESC): Regula la potencia que recibe el motor desde la batería, permitiendo controlar la velocidad de avance y frenado mediante señales PWM desde la Raspberry Pi.
+Coeficiente de resistencia a la rodadura: 0.05
 
-   Servomotor: Controla el sistema de dirección Ackermann para girar las ruedas delanteras con precisión angular.
 
-   Batería LiPo (Polímero de Litio): Fuente de energía principal de alta descarga para alimentar tanto los motores (a través del ESC) como la electrónica de control (mediante reguladores de voltaje).
-   
-## Gestión de obstáculos 
+Estos valores se usaron para estimar las fuerzas que el motor debía superar y definir el torque mínimo necesario en el eje de ruedas.
 
-NOVA utiliza una Arducam para Raspberry Pi Módulo 3 12MP  IMX708. Esta se basa en una serie de componentes clave que trabajan juntos para capturar, procesar y transferir  imágenes y video a nuestra Raspberry Pi. 
-La cámara cuenta con un Sensor de Imagen Sony IMX708 (12MP), cuya función principal es convertir la luz que incide en él en una señal eléctrica.
-Integra además un lente de 75°(D) y autoenfoque que se encarga de dirigir la luz hacia el sensor y de asegurar que la imagen esté nítida.
-Por último, cuenta con un cable plano flexible (FFC) (15-22pin). Este es el conductor de la comunicación y la energía.  
+1.3.1 Cálculo de Fuerzas Requeridas
 
-El vehículo autónomo utiliza una estrategia que fusiona datos de visión artificial (Arducam IMX708) y sensores de proximidadláser (VL53L0X) para sortear la pista y contar el progreso.
+Fuerzas primarias
 
-La Rasberry Pi actúa como la unidad central de procesamiento, integrando:
-1. Visión (IMX708): Se utiliza para la detección de límites de pista y el conteo de vueltas. Mediante el análisis del color negro (HSV) en la región de interés (ROI) inferior, el sistema determina dinámicamente si debe seguir la pared izquierda o la derecha.
-2. Distancia (VL53L0X): Tres sensores (S1, S2, S3) proporcionan distancias precisas a las paredes. Los datos son filtrados mediante un Promedio Móvil (Moving Average) de 5 muestras para asegurar estabilidad y rechazo de ruido antes de ser utilizados en el controlador.
-3. Actuadores:El control de movimiento se realiza mediante un sistema de ESC (Propulsión) y un Servo (Dirección), manejados con precisión a través de la librería gpiozero.
+Peso normal: N = m \cdot g = 1.5 \cdot 9.81 = 14.715\N
 
-## 🚀 Instalación
+Fuerza de aceleración: Facc = m \cdot a = 1.5 \cdot 1 = 1.5\N
 
-```bash
-git clone https://github.com/usuario/proyecto.git
-cd proyecto
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-python manage.py migrate
-python manage.py runserver
-```
+Fuerza por resistencia a la rodadura: Frr = Crr \cdot N = 0.05 \cdot 14.715 = 0.73575\N
 
-## 🧪 Tests
+Fuerza total en terreno plano: Ftotal = Facc + Frr = 2.23575\ \N. Caso conservador (incluyendo fricción adicional y pequeñas pendientes)
 
-```bash
-pytest        # Pruebas funcionales
-flake8 .      # Estilo de código
-black --check .  # Formato
-```
+En los cálculos extendidos del proyecto se obtuvo una fuerza total máxima de:
 
-## 🔐 Acceso de Ejemplo
+Ftotal\max = 4.791\N
 
-**Admin:**
-📧 admin@mail.com — 🔑 Abc123#
+Este valor se utilizó para garantizar que el motor seleccionado funcionara incluso en situaciones adversas.
 
-**Invitado:**
-📧 user@mail.com — 🔑 Abc123#
+1.3.2 Torque Requerido en el Eje
 
-## 🛣️ Roadmap
+Torque en el eje de ruedas (caso conservador) : Taxle = Ftotal\_max \cdot r = 4.791 \cdot 0.035 = 0.1677\ N·m
 
-- [ ] Login con redes sociales
-- [ ] API pública
-- [ ] Dashboard mejorado
+Torque por rueda, el sistema de tracción trasera transmite el par equitativamente a dos ruedas motrices: Twheel = 0.0838\N·m
 
-## 🖇️ Contribuye
+1.3.3 Potencia Mecánica Requerida
 
-```bash
-# Fork → Crea rama → Cambios → Commit → Pull Request
-```
+Se estimó la potencia usando las dos formulaciones fundamentales:
 
-Lee [CONTRIBUTING.md](.github/CONTRIBUTING.md) para más detalles.
+Potencia por fuerza y velocidad lineal: P = F cdot v \approx 2.667\ W
 
-## 📄 Licencia
+Potencia por torque y velocidad angular: P = T \cdot \omega \approx 4.00\ W
+Ambos resultados confirman que el robot requiere solo unos pocos watts de potencia mecánica continua, lo que es compatible con motores RC de escala pequeña.
 
-MIT — ver [LICENSE](LICENSE.md)
+1.3.4 Selección del Motor y Relación de Engranes
 
-⌨️ con ❤️ por [Brayan Diaz C](https://github.com/brayandiazc)
+Compromiso Velocidad–Par
+
+Se realizó un análisis comparando la velocidad y el torque que ofrecen motores comerciales disponibles en tablas técnicas.
+El motor que cumplió mejor con los requisitos fue un: → Motor RC 540 de 35T
+
+Este motor destaca por su alta velocidad de giro, lo que permite obtener una buena velocidad máxima en misión.
+
+Relación de engranajes seleccionada: 1.8 : 1 (54T / 30T)
+
+Justificación técnica
+
+Aumenta el torque disponible en las ruedas sin sacrificar excesivamente la velocidad, compensa la naturaleza de alta velocidad del motor RC 540, asegura que se supere la inercia inicial del robot y se alcance la aceleración deseada bajo carga, mantiene un desempeño competitivo para pruebas cronometradas.
+
+Torque mínimo que debe entregar el motor (considerando la reducción)
+
+T_motor_min = 0.1677 N·m / 1.8 = 0.093 N·m
+
+Valor que está dentro de lo que puede entregar un motor RC 540 operando en condiciones normales.
+
+La gestión de potencia, tracción y control: Fue diseñada para garantizar un desplazamiento eficiente, estable y preciso en todas las etapas de la misión. El movimiento del robot se controla mediante un Controlador de Velocidad Electrónico (ESC), el cual regula la velocidad del motor en función del ciclo de trabajo (PWM) enviado desde la unidad de procesamiento. Dado que la velocidad angular del motor es prácticamente proporcional al PWM —mientras el voltaje de la batería se mantenga constante—, este sistema permite ajustes finos en la aceleración y velocidad. Además, se recomienda el uso de rampas de aceleración para evitar picos de corriente y prevenir deslizamientos al inicio de la marcha.
+
+Transmisión de potencia: Se emplea un sistema de tracción trasera (RWD) con eje rígido. Esta configuración entrega el 100% del par a las ruedas motrices sin las pérdidas típicas asociadas a un diferencial, lo que mejora la eficiencia mecánica y simplifica el montaje general del tren motriz. El chasis fue diseñado para ser rígido, estable y equilibrado, incorporando adecuadamente los componentes electrónicos y eléctricos, y asegurando una correcta distribución de masas para mejorar la adherencia y la maniobrabilidad.
+
+Selección del motor y su interacción con el sistema de transmisión: Se realizó un análisis previo para encontrar el equilibrio adecuado entre velocidad y par. El motor RC 540 de 35T fue elegido porque ofrece una alta velocidad de giro, permitiendo alcanzar mayores velocidades en recorrido recto. Para compensar esta característica y asegurar que el robot pueda vencer la inercia inicial, acelerar con eficacia y mover una masa de 1.4 kg, se definió una relación de reducción de 1.8:1 (54 dientes / 30 dientes). Esta relación incrementa el par disponible sin sacrificar en exceso la velocidad, logrando un compromiso ideal para cumplir con los tiempos de misión y garantizar la fuerza de tracción necesaria.
+
+Finalmente, la cinemática de giro se resuelve mediante la implementación de la geometría Ackerman en el eje delantero. Debido a que el eje trasero es rígido, las ruedas motrices no pueden girar a velocidades diferentes durante una curva, lo cual genera arrastre en la rueda interior. La dirección Ackerman minimiza este problema al permitir que las ruedas delanteras adopten ángulos de giro específicos para cada una, reduciendo el arrastre, mejorando la estabilidad en curva y acercando la trayectoria real a la trayectoria ideal. Esto se traduce en un giro más suave, preciso y eficiente, incluso con las limitaciones naturales de un eje rígido sin diferencial.
+
+### 1. 4 Instrucciones de Construcción y Archivos CAD
+El robot utiliza un chasis base comercial de acrílico (adquirido en Mercado Libre). Por lo tanto, no se requiere un modelo CAD completo del chasis.
+Sin embargo, el equipo diseñó y fabricó u dos (2) piezas personalizadas esenciales para la integración de los actuadores y sensores:
+Base de Montaje de la Cámara: Una estructura diseñada en SolidWorks para asegurar la cámara de visión de manera estable y a una altura optimizada para la detección de líneas.
+Engranaje Motriz del Eje Trasero: Esta pieza fue rediseñada en SolidWorks y fabricada debido a una falla crítica en el engranaje original del kit.Justificación de Ingeniería: El engranaje original se estropeó por sobrecalentamiento/fricción (derretimiento). El nuevo diseño garantiza la tolerancia térmica y la resistencia mecánica necesarias para soportar el torque del motor RC 540 de 35T sin comprometer la relación de transmisión de 1.8:1
+
+## 2. Gestión de la potencia y los sentidos 
+El diseño de la arquitectura eléctrica y de percepción se basa en un enfoque de aislamiento de potencia y redundancia sensorial para garantizar la estabilidad operativa y la precisión en la navegación.
+2.1 Gestión de la Energía (Aislamiento de Potencia)
+La estrategia de energía utiliza un sistema de doble batería LiPo para aislar los sistemas de potencia (motores/actuadores) de los sistemas lógicos (procesamiento/sensores).
+* Fuente de Energía: Dos (2) Baterías LiPo de 5200 mAh, 7.4 V (2 celdas).
+Justificación del Aislamiento: Esta configuración de doble batería es fundamental para mitigar el "problema de la caída de voltaje (Brownout)".
+* Batería 1 (Actuadores): Dedicada exclusivamente al Motor DC (Brushed) de tracción y al Servomotor de dirección (a través del ESC). Esta batería absorbe los picos de consumo y las caídas de voltaje de los motores sin afectar la electrónica sensible.
+* Batería 2 (Lógica y Sensores): Dedicada a la Raspberry Pi 4 (CPU) y a todos los sensores. Esto garantiza un suministro de voltaje limpio y estable a los componentes de procesamiento, evitando reinicios inesperados que comprometerían la ejecución de la estrategia de navegación.
+2.2 Selección e Implementación de Sensores (Los Sentidos)
+La selección de sensores está orientada a proporcionar al robot la información precisa y de baja latencia necesaria para la localización y la corrección de trayectoria en tiempo real.
+* 3x Sensores de Distancia Láser (VL53L0X): Utilizan tecnología Time-of-Flight (ToF). Son esenciales para el mapeo de la pista y la corrección lateral de la trayectoria (paredes). Su precisión milimétrica minimiza el error acumulado en el posicionamiento.
+* 1x Cámara (ArduCam V3 12MP): Captura de imágenes de alta resolución. Utilizada para Visión Artificial, permitiendo la detección de líneas, el reconocimiento de patrones y la corrección visual de la trayectoria.
+## 3. Gestión de obstáculos 
+## 4. Fotos- Equipo y vehículo
+## 5. Performance videos 
+https://www.youtube.com/channel/UCp8W6HJ0NGMzdpxV4bdbbew
+
+## 6. Utilización de Github
+NOVA-DNT/N.O.V.A: N.O.V.A (Navigation Operative Vehicle Autonomus) WRO
+
+## 7. Factor de ingeniería
+El robot utiliza un chasis base comercial de acrílico (adquirido en Mercado Libre). Por lo tanto, no se requiere un modelo CAD completo del chasis.
+Sin embargo, el equipo diseñó y fabricó u dos (2) piezas personalizadas esenciales para la integración de los actuadores y sensores:
+Base de Montaje de la Cámara: Una estructura diseñada en SolidWorks para asegurar la cámara de visión de manera estable y a una altura optimizada para la detección de líneas.
+Engranaje Motriz del Eje Trasero: Esta pieza fue rediseñada en SolidWorks y fabricada debido a una falla crítica en el engranaje original del kit. 
+Justificación de Ingeniería: El engranaje original se estropeó por sobrecalentamiento/fricción (derretimiento). El nuevo diseño garantiza la tolerancia térmica y la resistencia mecánica necesarias para soportar el torque del motor RC 540 de 35T sin comprometer la relación de transmisión de 1.8:1
+
+
