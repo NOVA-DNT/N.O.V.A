@@ -14,7 +14,7 @@ time.sleep(2)
 
 print("Motor avanzando MEDIO...")
 esc.value = 0.089  # VELOCIDAD MEDIA
-time.sleep(3)
+time.sleep(100)
 
 # DETENER
 print("Motor detenido")
