@@ -1,11 +1,40 @@
 # --- IMPORTACIONES ---
 # -*- coding: utf-8 -*-
 
+import serial
 import time
 import cv2
 import numpy as np
 from picamera2 import Picamera2
 from gpiozero import PWMOutputDevice, Servo
+
+class sensorUART:
+    def __init__(self): 
+        self.ser = None 
+        try: 
+            self.ser = serial.Serial('/dev/serial0', 115200, timeout=0.01)
+            self.ser.reset_input_buffer()
+            print("Sensores conectados.")
+        except:
+            print("ADVERTENCIA: Sensores NO detectados.")
+        
+    def leer_frontal(self):
+        """Devuelve la distancia S2 en mm. Si falla, devuelve 2000 (lejos)."""
+        distancia = 2000.0
+        if self.ser and self.ser.in_waiting:
+            try:
+                linea = self.ser.readline().decode('utf-8', errors='ignore').strip()
+                partes = linea.split(',')
+                for parte in partes:
+                    if "S2" in parte:
+                        valor = float(parte.split(':')[1])
+                        if valor > 0: distancia = valor
+            except: pass
+        return distancia
+    
+    def cerrar(self):
+        if self.ser: self.ser.close()
+
 
 motor = PWMOutputDevice(18, frequency=50)
 direccion = Servo(17)
@@ -17,7 +46,6 @@ KP = 0.00020  # Fuerza de giro
 KD = 0.00015  # Estabilidad (Amortiguador)
 error_anterior = 0
 
-# Inicializar
 motor.value = NEUTRO
 direccion.value = 0
 print("Hardware listo. Esperando...")
@@ -32,6 +60,25 @@ def arranque():
 	motor.value = 0.087
 	time.sleep (0.2)
 	motor.value = VELOCIDAD_BASE 
+
+def calcular_velocidad_con_freno(velocidad_objetivo, distancia_s2):
+    DISTANCIA_INICIO = 400.0 
+    DISTANCIA_PARADA = 100.0
+    
+    if distancia_s2 > DISTANCIA_INICIO:
+        return velocidad_objetivo
+    
+    if distancia_s2 < DISTANCIA_PARADA:
+        return NEUTRO
+    
+    rango = DISTANCIA_INICIO - DISTANCIA_PARADA
+    progreso = distancia_s2 - DISTANCIA_PARADA
+    factor = progreso / rango # 0.0 a 1.0
+    
+    delta = velocidad_objetivo - NEUTRO
+    vel_final = NEUTRO + (delta * factor)
+    
+    return vel_final
 
 def analizar_camara(frame):
     gris = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
@@ -78,9 +125,11 @@ print("CARRERA INICIADA")
 try:
     while True:
         frame = picam2.capture_array()
-        
+
+        distancia = sensores.leer_frontal()
+               
         p_izq, p_cen, p_der, imagen_proc = analizar_camara(frame)
-        
+
         angulo_servo = calcular_pd(p_izq, p_cen, p_der)
         direccion.value = angulo_servo
         
@@ -88,8 +137,10 @@ try:
             motor.value = VELOCIDAD_BASE * 0.85
         else:
             motor.value = VELOCIDAD_BASE
+
+        vel_real = calcular_velocidad_con_freno(vel_objetivo, distancia)
+        motor.value = vel_real
         
-        # E. Mostrar (Comentar para carrera real)
         cv2.imshow("Vision", imagen_proc)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
