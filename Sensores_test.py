@@ -1,112 +1,112 @@
 #!/usr/bin/env python3
-import serial
-import time
-import sys
+# -*- coding: utf-8 -*-
 
-UART_PORT = '/dev/serial0' 
+import serial
+import sys
+from typing import Optional, Dict
+
+# Configuración
+UART_PORT = '/dev/serial0'
 UART_BAUD = 115200
-TIMEOUT = 1
+TIMEOUT = 0.1  # Timeout reducido
+DISTANCIA_MINIMA = 100.0
+
+class SensorUART:
+    def __init__(self):
+        self.ser = None
+        
+    def conectar(self) -> bool:
+        """Conecta al puerto serial"""
+        try:
+            self.ser = serial.Serial(
+                port=UART_PORT,
+                baudrate=UART_BAUD,
+                timeout=TIMEOUT,
+                bytesize=serial.EIGHTBITS,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE
+            )
+            print(f"OK: Puerto {UART_PORT} abierto a {UART_BAUD} baudios\n")
+            return True
+            
+        except serial.SerialException as e:
+            print(f"ERROR: {e}")
+            return False
+    
+    def leer_linea(self) -> Optional[str]:
+        if self.ser and self.ser.in_waiting:
+            try:
+                return self.ser.readline().decode('utf-8', errors='ignore').strip()
+            except:
+                return None
+        return None
+    
+    def cerrar(self):
+        """Cierra el puerto serial"""
+        if self.ser and self.ser.is_open:
+            self.ser.close()
+            print("\n[OK] Puerto cerrado")
+
+def parse_datos(linea: str) -> Optional[Dict[str, float]]:
+    try:
+        partes = linea.split(',')
+        if len(partes) != 3:
+            return None
+        
+        datos = {}
+        for parte in partes:
+            sensor, valor = parte.split(':')
+            datos[sensor] = float(valor)
+        
+        return datos if all(k in datos for k in ['S1', 'S2', 'S3']) else None
+    except:
+        return None
+
+def mostrar_datos(datos: Dict[str, float]):
+    def fmt(val):
+        return "ERROR  " if val < 0 else f"{val:6.1f} mm"
+    
+    print(f"S1: {fmt(datos['S1'])} | S2: {fmt(datos['S2'])} | S3: {fmt(datos['S3'])}", end='')
+    
+    # Alertas en la misma línea
+    alertas = []
+    for sensor in ['S1', 'S2', 'S3']:
+        if 0 < datos[sensor] < DISTANCIA_MINIMA:
+            alertas.append(sensor)
+    
+    if alertas:
+        print(f" [ALERTA: {','.join(alertas)}]")
+    else:
+        print()
 
 def main():
-    print("="*50)
-    print("  Receptor UART - 3 Sensores VL53L0X")
-    print("  Raspberry Pi 4")
-    print("="*50)
+    print("=" * 50)
+    print("=" * 50)
     print()
     
-    try:
-        ser = serial.Serial(
-            port=UART_PORT,
-            baudrate=UART_BAUD,
-            timeout=TIMEOUT,
-            bytesize=serial.EIGHTBITS,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE
-        )
-        print(f"OK: Puerto {UART_PORT} abierto a {UART_BAUD} baudios")
-        print(f"OK: Esperando datos del ESP32...\n")
-        time.sleep(2)
-        
-    except serial.SerialException as e:
-        print(f"ERROR: Error al abrir puerto serial: {e}")
-        print("\nVerifica:")
-        print("1. UART habilitado en raspi-config")
-        print("2. Conexiones fisicas correctas")
-        print("3. ESP32 conectado y funcionando")
+    uart = SensorUART()
+    
+    if not uart.conectar():
         sys.exit(1)
     
     try:
+        print("Recibiendo datos...\n")
         while True:
-               if ser.in_waiting > 0:
-                line = ser.readline().decode('utf-8').strip()
-                
-                if line:
-                    try:
-                        data = parse_sensor_data(line)
-                        if data:
-                            print(f"S1: {format_distance(data['S1'])} | "
-                                  f"S2: {format_distance(data['S2'])} | "
-                                  f"S3: {format_distance(data['S3'])}")
-                            
-                            process_data(data)
-                    
-                    except Exception as e:
-                        print(f"ADVERTENCIA: Error procesando: {line} - {e}")
-                    time.sleep(0.01)
-
+            linea = uart.leer_linea()
+            
+            if linea:
+                datos = parse_datos(linea)
+                if datos:
+                    mostrar_datos(datos)
+                    # Aquí puedes agregar lógica adicional
+                    # guardar_datos(datos)s
+                    # enviar_a_servidor(datos)
     
     except KeyboardInterrupt:
-        print("\n\nOK: Programa detenido por usuario")
+        print("\n\n[OK] Detenido por usuario")
     
     finally:
-        if 'ser' in locals() and ser.is_open:
-            ser.close()
-            print("OK: Puerto serial cerrado")
-
-
-def parse_sensor_data(line):
-
-    try:
-        parts = line.split(',')
-        data = {}
-        
-        if len(parts) != 3:
-            return None
-            
-        for part in parts:
-            sensor, value = part.split(':')
-            data[sensor.strip()] = float(value)
-        
-        if 'S1' in data and 'S2' in data and 'S3' in data:
-            return data
-        else:
-            return None
-    
-    except (ValueError, IndexError):
-        return None
-
-
-def format_distance(distance):
-
-    if distance < 0:
-        return "ERROR  "
-    else:
-        return f"{distance:6.1f} mm"
-
-
-def process_data(data):
-
-    DISTANCIA_MINIMA = 100 
-    
-    if 0 < data['S1'] < DISTANCIA_MINIMA:
-        print("  * ADVERTENCIA: Objeto detectado cerca del Sensor 1!")
-    
-    if 0 < data['S2'] < DISTANCIA_MINIMA:
-        print("  * ADVERTENCIA: Objeto detectado cerca del Sensor 2!")
-    
-    if 0 < data['S3'] < DISTANCIA_MINIMA:
-        print("  * ADVERTENCIA: Objeto detectado cerca del Sensor 3!")
-
+        uart.cerrar()
 
 if __name__ == "__main__":
     main()
