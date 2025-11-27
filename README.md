@@ -28,9 +28,12 @@ The  internal  layout  of  the  modules  was  carefully  organized  to  balance 
 * Electronic  Speed  Controller  (ESC)
 * Servomoto
 
-    <img width="143" height="332" alt="image" src="https://github.com/user-attachments/assets/4f686cc4-54b7-4f8f-80f8-2c028fa1c636" />
+<img width="143" height="332" alt="image" src="https://github.com/user-attachments/assets/4f686cc4-54b7-4f8f-80f8-2c028fa1c636" />
+
 Image 1. Components
-    <img width="196" height="340" alt="image" src="https://github.com/user-attachments/assets/c81cacbe-b05c-49eb-97fa-15c7ce557b92" />
+
+<img width="196" height="340" alt="image" src="https://github.com/user-attachments/assets/c81cacbe-b05c-49eb-97fa-15c7ce557b92" />
+
 Image 2. Components
 
 ### 1.3  Applied  Engineering  Principles
@@ -184,11 +187,42 @@ Image  6.  Flowchart  of  the  general  process,  detailing  Phase  1  (Start  a
 
 Image  7.  Flowchart  of  the  general  process,  detailing  Phase  3  Control  Decision  (Main  Logic)  and  Phase  4  Convergence  and  Termination.
 
+### 4. Photos  -  Equipment  and  vehicle
+
+<img width="748" height="492" alt="image" src="https://github.com/user-attachments/assets/d2da65c5-5835-4728-819c-998b3417c3df" />
+
+Image  8.  Photos  of  the  vehicle  and  equipment
+
 ### 5. Performance  videos
 https://www.youtube.com/channel/UCp8W6HJ0NGMzdpxV4bdbbew
 
 ### 6. Using  Github
 NOVA-DNT/NOVA:  NOVA  (Navigation  Operative  Vehicle  Autonomus)  WRO
+
+### 7. Engineering  Factor
+The  robot  uses  a  commercially  available  acrylic  chassis  (purchased  from  Mercado  Libre).  Therefore,  a  complete  CAD  model  of  the  chassis  is  not  required.
+However,  the  team  designed  and  manufactured  custom  parts  essential  for  integrating  the  actuators  and  sensors  into  the  SolidWorks  CAD  software.
+
+* Camera  Mounting  Base:  A  structure  designed  to  secure  the  camera. The  camera  provides  a  stable  field  of  view  and  an  optimized  height  for  line detection.  A  75-degree  viewing  angle  was  set  to  facilitate  programming  logic.
+* Battery  and  Raspberry  Pi  4  Mounting  Base:  A  stand  was  designed  in  which  the  battery  is  placed  in  the  center  of  the  cart  at  the  bottom.
+* Rear  Axle  Drive  Gear:  This  part  was  redesigned  and  manufactured  due  to a  critical  failure  in  the  original  kit  gearing.
+
+Engineering  Rationale:  The  original  gearing  failed  due  to  overheating/friction  (melting).  The  new  design  ensures  the  
+thermal  tolerance  and  mechanical  strength  required  to  withstand  the  torque  of  the  35T  RC  540  motor  without  
+compromising  the  1.8:1  gear  ratio
+
+<img width="904" height="479" alt="image" src="https://github.com/user-attachments/assets/b7bd9c91-b2fc-490c-b221-bfc0344b6b5c" />
+
+Image  9.  Design  of  support  for  Raspberry  Pi  Camera  Module  V2
+
+<img width="904" height="490" alt="image" src="https://github.com/user-attachments/assets/630bdabe-b743-4a91-bc73-a1e6e0e5e8b4" />
+
+Image  10.  Battery  and  Raspberry  Pi  support  design
+ 
+<img width="909" height="486" alt="image" src="https://github.com/user-attachments/assets/3d39ec40-05b3-4551-922c-97be75714d25" />
+
+Image  11.  Gear  design
+
 
 
 
